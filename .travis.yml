@@ -1,0 +1,15 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t yeonuk/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true yeonuk/react-test npm run test
+
+after_success:
+  - docker build -t yeonuk/multi-client -f ./client/Dockerfile ./client
+  - docker build -t yeonuk/multi-nginx -f ./nginx/Dockerfile ./nginx
+  - docker build -t yeonuk/multi-server -f ./server/Dockerfile ./server
+  - docker build -t yeonuk/multi-worker -f ./worker/Dockerfile ./worker
