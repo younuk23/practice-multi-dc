@@ -9,7 +9,12 @@ script:
   - docker run -e CI=true yeonuk/react-test npm run test
 
 after_success:
-  - docker build -t yeonuk/multi-client -f ./client/Dockerfile ./client
-  - docker build -t yeonuk/multi-nginx -f ./nginx/Dockerfile ./nginx
-  - docker build -t yeonuk/multi-server -f ./server/Dockerfile ./server
-  - docker build -t yeonuk/multi-worker -f ./worker/Dockerfile ./worker
+  - docker build -t yeonuk/multi-client -f  ./client
+  - docker build -t yeonuk/multi-nginx -f ./nginx
+  - docker build -t yeonuk/multi-server -f ./server
+  - docker build -t yeonuk/multi-worker -f ./worker
+  - echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push yeonuk/multi-client
+  - docker push yeonuk/multi-nginx
+  - docker push yeonuk/multi-server
+  - docker push yeonuk/multi-worker
