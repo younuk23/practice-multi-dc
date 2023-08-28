@@ -18,3 +18,15 @@ after_success:
   - docker push younuk23/multi-nginx
   - docker push younuk23/multi-server
   - docker push younuk23/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-northeast-2"
+  app: "udemy-docker-multi-container"
+  env: "Udemy-docker-multi-container-env"
+  bucket_name: "elasticbeanstalk-ap-northeast-2-852190556770"
+  bucket_path: "udemy-docker-multi-container"
+  on:
+    branch: main
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
