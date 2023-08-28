@@ -55,7 +55,7 @@ class Fib extends Component {
   render() {
     return (
       <div>
-        <h1>d, world</h1>
+        <h1>Hello, world</h1>
         <form onSubmit={this.handleSubmit}>
           <label>Enter your index:</label>
           <input
